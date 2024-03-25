@@ -7,7 +7,7 @@ import cors from "cors";
 
 const app = express();
 // Allow requests from all origins
-// app.use(cors());
+app.use(cors());
 app.use(express.json()); // parse data to json format
 
 // const db = mysql.createConnection({
@@ -22,7 +22,7 @@ app.use(express.json()); // parse data to json format
 //   origin: [process.env.ORIGIN],
 // };
 
-app.use(cors({ origin: ["https://student-app-y.vercel.app/"] }));
+// app.use(cors({ origin: ["https://student-app-y.vercel.app/"] }));
 
 // app.use(cors(corsOptions));
 
