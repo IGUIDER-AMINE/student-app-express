@@ -72,11 +72,20 @@ app.delete("/delete/:id", (req, res) => {
 });
 
 // food -delivery
-app.get("/category/", (req, res) => {
-  const sql = "SELECT * FROM category WHERE 1";
+app.get("/category", (req, res) => {
+  const sql = "SELECT * FROM category";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     res.json(result);
+  });
+});
+
+app.get("/food/:id", (req, res) => {
+  const sql = "SELECT * FROM food WHERE category = ?";
+  const id = req.params.id;
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Message: err });
+    return res.json(result);
   });
 });
 
