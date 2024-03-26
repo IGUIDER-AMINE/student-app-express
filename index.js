@@ -18,13 +18,6 @@ app.use(express.static("public"));
 //   database: "crud",
 // });
 
-// Allow requests only from specific origins
-// const corsOptions = {
-//   origin: [process.env.ORIGIN],
-// };
-
-// app.use(cors(corsOptions));
-
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
