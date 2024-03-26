@@ -9,7 +9,8 @@ const app = express();
 // Allow requests from all origins
 app.use(cors());
 app.use(express.json()); // parse data to json format
-
+//acces a http://localhost:8081/images/food_1.png
+app.use(express.static("public"));
 // const db = mysql.createConnection({
 //   host: "localhost",
 //   user: "root",
@@ -22,15 +23,6 @@ app.use(express.json()); // parse data to json format
 //   origin: [process.env.ORIGIN],
 // };
 
-// const corsConfig = {
-//   credentials: true, // this allows to send back (to client) cookies
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
-//   origin: ["http://localhost:3000", "http://localhost:3001", ""],
-//   preflightContinue: false,
-// };
-
-app.use(cors(corsConfig));
-
 // app.use(cors(corsOptions));
 
 const db = mysql.createConnection({
@@ -40,8 +32,6 @@ const db = mysql.createConnection({
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
 });
-
-console.log(process.env.DB_HOST);
 
 app.get("/", (req, res) => {
   const sql = "SELECT * FROM student";
@@ -85,6 +75,15 @@ app.delete("/delete/:id", (req, res) => {
   db.query(sql, [id], (err, result) => {
     if (err) return res.json({ Message: err });
     return res.json(result);
+  });
+});
+
+// food -delivery
+app.get("/category/", (req, res) => {
+  const sql = "SELECT * FROM category WHERE 1";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    res.json(result);
   });
 });
 
