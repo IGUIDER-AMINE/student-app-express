@@ -22,7 +22,26 @@ app.use(express.json()); // parse data to json format
 //   origin: [process.env.ORIGIN],
 // };
 
-// app.use(cors({ origin: ["https://student-app-y.vercel.app/"] }));
+const corsConfig = {
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "X-Access-Token",
+    "Authorization",
+  ],
+  credentials: true, // this allows to send back (to client) cookies
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://student-app-y.vercel.app",
+  ],
+  preflightContinue: false,
+};
+
+app.use(cors(corsConfig));
 
 // app.use(cors(corsOptions));
 
